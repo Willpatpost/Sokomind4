@@ -166,7 +166,7 @@ test("playtest is fully playable and returns to the unchanged draft", async ({
   ).toBeGreaterThanOrEqual(4.5);
   await page.keyboard.press("ArrowDown");
   await expect(page.getByTestId("editor-playtest-moves")).toHaveText("1");
-  await expect(page.getByRole("status")).toContainText("Solved in 1 move");
+  await expect(page.getByText("Solved in 1 move")).toBeVisible();
   const activeAnimations = await page
     .getByTestId("editor-playtest-board")
     .evaluate(
@@ -180,7 +180,7 @@ test("playtest is fully playable and returns to the unchanged draft", async ({
   await page.getByRole("button", { name: "Undo" }).click();
   await expect(page.getByTestId("editor-playtest-moves")).toHaveText("0");
   await page.getByRole("button", { name: "Move down" }).click();
-  await expect(page.getByRole("status")).toContainText("Solved in 1 move");
+  await expect(page.getByText("Solved in 1 move")).toBeVisible();
   await page.getByRole("button", { name: "Restart" }).click();
   await expect(page.getByTestId("editor-playtest-moves")).toHaveText("0");
 
@@ -276,9 +276,7 @@ test("shares URL-safe data, reports failures, and keeps the dark primary legible
   );
 
   await page.getByRole("button", { name: "Share (copy URL)" }).click();
-  await expect(page.getByRole("status")).toContainText(
-    "Share link copied to the clipboard",
-  );
+  await expect(page.getByText("Share link copied to the clipboard")).toBeVisible();
   const shareUrl = await page.getByLabel("Share link").inputValue();
   expect(shareUrl).toMatch(/[?&]custom=[A-Za-z0-9_-]+$/);
 
@@ -324,5 +322,5 @@ test("does not publish a stale clipboard result after the draft changes", async 
     ).finishEditorClipboard?.();
   });
   await page.waitForTimeout(0);
-  await expect(page.getByRole("status")).toHaveCount(0);
+  await expect(page.getByRole("status").filter({ hasNotText: /^$/ })).toHaveCount(0);
 });

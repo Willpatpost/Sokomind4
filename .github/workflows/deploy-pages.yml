@@ -41,8 +41,8 @@ jobs:
       - name: Test and build
         run: npm test
 
-      - name: Install browser
-        run: npx playwright install --with-deps chromium
+      - name: Install browsers
+        run: npx playwright install --with-deps
 
       - name: Browser and accessibility tests
         run: npm run test:browser

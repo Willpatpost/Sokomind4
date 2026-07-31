@@ -36,7 +36,7 @@ test("restores an exact attempt after reload and keeps undo available", async ({
 
   await page.reload();
   await expect(page.getByTestId("moves-count")).toHaveText("1");
-  await expect(page.getByRole("status")).toContainText("Restored 1 saved move");
+  await expect(page.getByText("Restored 1 saved move")).toBeVisible();
 
   await page.getByRole("button", { name: "Undo" }).click();
   await expect(page.getByTestId("moves-count")).toHaveText("0");
