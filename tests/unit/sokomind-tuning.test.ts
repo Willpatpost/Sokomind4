@@ -12,7 +12,7 @@ describe("Sokomind tuning profile", () => {
   it("resolves a partial profile without changing the versioned defaults", () => {
     const profile = resolveSokomindTuning({ topologyWeight: 1.25 });
 
-    assert.equal(profile.schemaVersion, 1);
+    assert.equal(profile.schemaVersion, 2);
     assert.equal(profile.topologyWeight, 1.25);
     assert.equal(
       profile.goalPackingWeight,
@@ -39,12 +39,16 @@ describe("Sokomind tuning profile", () => {
       /unknown.*planMoveWeigth/i,
     );
     assert.throws(
-      () => resolveSokomindTuning({ schemaVersion: 2 } as never),
-      /schema version 2/i,
+      () => resolveSokomindTuning({ schemaVersion: 99 } as never),
+      /schema version 99/i,
     );
     assert.equal(
       resolveSokomindTuning({ schemaVersion: 1 }).schemaVersion,
-      1,
+      2,
+    );
+    assert.equal(
+      resolveSokomindTuning({ schemaVersion: 2 }).schemaVersion,
+      2,
     );
   });
 
@@ -55,7 +59,7 @@ describe("Sokomind tuning profile", () => {
     assert.equal(payload.weight, 2.5);
     assert.match(
       sokomindTuningFingerprint(profile),
-      /^v1;planMoveWeight=0\.005;heuristicWeight=2\.5;/,
+      /^v2;planMoveWeight=0\.005;heuristicWeight=2\.5;.*rewriteMoveWindowScale=/,
     );
   });
 

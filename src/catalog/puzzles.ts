@@ -1,4 +1,4 @@
-import { DIFFICULTIES, type Difficulty, type PuzzleDefinition } from "../core/model";
+import { DIFFICULTIES, type Difficulty, type PuzzleDefinition } from "../core/model.ts";
 import importedPuzzles from "./imported-puzzles.json" with { type: "json" };
 
 export const DIFFICULTY_ORDER = DIFFICULTIES;

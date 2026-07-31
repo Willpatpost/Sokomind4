@@ -1,6 +1,6 @@
-import type { Difficulty, PuzzleDefinition } from "@/src/core/model";
-import { DIFFICULTY_ORDER } from "@/src/catalog/puzzles";
-import type { ProgressData } from "@/src/shared/progress";
+import type { Difficulty, PuzzleDefinition } from "../../core/model.ts";
+import { DIFFICULTY_ORDER } from "../../catalog/puzzles.ts";
+import type { ProgressData } from "../../shared/progress.ts";
 
 const DIFFICULTY_LABELS: Record<Difficulty, string> = {
   tutorial: "Tutorial",

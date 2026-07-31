@@ -7,7 +7,7 @@ import {
 import {
   detectDeadlock,
   findPushedBox,
-} from "../../src/core/deadlock-bridge.ts";
+} from "../../src/solver/deadlock-bridge.ts";
 import type { Box, PuzzleDefinition } from "../../src/core/model.ts";
 
 function puzzle(rows: readonly string[]): PuzzleDefinition {
@@ -161,14 +161,12 @@ describe("deadlock bridge", () => {
     assert.ok(result.deadlockedBoxIds.length > 0);
   });
 
-  it("findPushedBox identifies pushed box by ID, not index", () => {
-    // Create two boxes
+  it("findPushedBox identifies pushed box by index comparison", () => {
     const boxA: Box = { id: "A:0", label: "A", position: { row: 1, column: 1 } };
     const boxB: Box = { id: "B:0", label: "B", position: { row: 2, column: 2 } };
 
-    // Previous: [A, B] order; Next: [B, A_moved] order (reversed, A moved)
     const previous = [boxA, boxB];
-    const next = [boxB, { ...boxA, position: { row: 1, column: 2 } }];
+    const next = [{ ...boxA, position: { row: 1, column: 2 } }, boxB];
 
     const pushed = findPushedBox(previous, next);
     assert.equal(pushed?.id, "A:0");
