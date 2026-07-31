@@ -34,11 +34,11 @@ function createMockStorage(): Storage {
 }
 
 function installMockStorage(storage: Storage): void {
-  (globalThis as any).window = { localStorage: storage };
+  (globalThis as Record<string, unknown>).window = { localStorage: storage };
 }
 
 function removeMockStorage(): void {
-  Reflect.deleteProperty(globalThis as any, "window");
+  Reflect.deleteProperty(globalThis as Record<string, unknown>, "window");
 }
 
 describe("STORAGE_KEYS", () => {

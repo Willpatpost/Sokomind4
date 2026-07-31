@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
-import { DIRECTIONS } from "../../src/core/index.ts";
 import {
   KeeperReachability,
   type ReachabilityTopology,

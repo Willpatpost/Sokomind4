@@ -339,7 +339,7 @@ if (!childMode) {
           if (record.solved) solvedCount += 1;
           totalMoves += numeric(record.moves);
           totalElapsedMs += numeric(record.elapsedMs);
-        } catch {}
+        } catch { /* skip malformed lines */ }
       }
     }
     if (child.stderr) process.stderr.write(child.stderr);

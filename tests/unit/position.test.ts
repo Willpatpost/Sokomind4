@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
+import type { Direction } from "../../src/core/model.ts";
 import {
   positionKey,
   numericPositionKey,
@@ -128,7 +129,7 @@ describe("directionDelta", () => {
 
   it("throws RangeError for unknown direction", () => {
     assert.throws(
-      () => directionDelta("diagonal" as any),
+      () => directionDelta("diagonal" as unknown as Direction),
       { name: "RangeError" },
     );
   });
